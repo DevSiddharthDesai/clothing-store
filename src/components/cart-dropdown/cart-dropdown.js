@@ -13,7 +13,7 @@ const CartDropdown = () => {
         <div className={`cart-dropdown-container ${toggle ? '' : 'none'}`}>
             <div className='cart-items'> 
                 {cartItems ? cartItems.map((item) => {
-                    return <CartItem cartitem={item.product} />
+                    return <CartItem cartitem={item} />
                 }): ''}           
             </div>
             Total: {total}

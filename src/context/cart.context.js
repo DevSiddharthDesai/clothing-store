@@ -1,30 +1,20 @@
 import { createContext, useState, useEffect } from "react";
 
-const addCartItem = (cartItems, productToadd) => {
+const addCartItem = (cartItems, productToAdd) => {
 
-    let temporaryCart = [];
-    
-    // If the cart is empty just add first product
-    if(cartItems.length == 0){
-        productToadd.product.quantity = 1;
-        temporaryCart = [...cartItems, productToadd];
-    }
+    const existingCartItem = cartItems.find(
+        (cartItem) => cartItem.id === productToAdd.id
+    );
 
-    // based on condition add the product
-    if(cartItems.length > 0){
-        {cartItems.map((item) => {
-            if(item.product.id === productToadd.product.id){
-                item.product.quantity++;
-                temporaryCart = [...cartItems]
-            }else{
-                productToadd.product.quantity = 1;
-                temporaryCart = [...cartItems, productToadd];
-            }
-        })
-        }
+    if (existingCartItem) {
+        return cartItems.map((cartItem) =>
+          cartItem.id === productToAdd.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
     }
     
-    return temporaryCart;
+    return [...cartItems, { ...productToAdd, quantity: 1 }];
 }
 
 export const CartContext = createContext({
@@ -48,12 +38,12 @@ export const CartProvider = ({children}) => {
         let carttotal = 0;
 
         // Cart Quantity Count
-        const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.product.quantity, 0);
+        const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
         setCartQty(newCartCount);
 
         // Cart Total
         cartItems.forEach(element => {
-            total = [...total, element.product.quantity * element.product.price];
+            total = [...total, element.quantity * element.price];
             carttotal = total.reduce(function(total1, item1){
                 return total1 + item1;
             });
