@@ -7,7 +7,7 @@ import CartItem from '../cart-item/cart-item-component';
 
 const CartDropdown = () => {
 
-    const { toggle, cartItems, total } = useContext(CartContext);
+    const { toggle, cartItems, carttotal } = useContext(CartContext);
 
     return(
         
@@ -17,7 +17,7 @@ const CartDropdown = () => {
                     return <CartItem cartitem={item} />
                 }): ''}           
             </CartItems>
-            Total: {total}
+            Total: {carttotal}
             <Link to='checkout'><Button>Go TO Checkout</Button></Link>
         </CartContainer>
     )
