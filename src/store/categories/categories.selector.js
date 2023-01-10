@@ -1,0 +1,1 @@
+export const setCategoriesMap = (state) => state.categories.categoriesMap;

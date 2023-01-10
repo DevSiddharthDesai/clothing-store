@@ -75,6 +75,11 @@ const cartReducer = (state, action) => {
                 ...state,
                 ...payload
             }
+        case CART_ACTION_TYPES.SET_TOGGLE:
+            return{
+                ...state,
+                toggle: payload
+            }
         default:  
             throw new Error(`Unhandled type ${type} in CartReducer`);
     }
@@ -91,9 +96,9 @@ export const INITIAL_STATE = {
 // Create Cart Provider func
 export const CartProvider = ({children}) => {
     
-    const [toggle, setToggle] = useState(false);
+    // const [toggle, setToggle] = useState(false);
 
-    const [{cartItems, cartQty, carttotal}, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+    const [{cartItems, cartQty, carttotal, toggle}, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
     const updateCartItemReducer = (newCartItems) => {
 
@@ -101,7 +106,11 @@ export const CartProvider = ({children}) => {
 
         const newCarttotal = newCartItems.reduce((total, cartItem) => total + cartItem.quantity * cartItem.price, 0);
 
-        dispatch({ type: CART_ACTION_TYPES.SET_CART_ITEMS, payload: {cartItems: newCartItems, carttotal: newCarttotal, cartQty: newCartCount}});
+        dispatch({ type: CART_ACTION_TYPES.SET_CART_ITEMS, payload: {
+            cartItems: newCartItems, 
+            carttotal: newCarttotal, 
+            cartQty: newCartCount
+        }});
 
     }
 
@@ -120,12 +129,16 @@ export const CartProvider = ({children}) => {
         updateCartItemReducer(clearitem);
     }
 
+    const setToggle = (bool) => {
+        dispatch({type: CART_ACTION_TYPES.SET_TOGGLE, payload: bool})
+    }
+
     const value = {
-        toggle, 
-        setToggle, 
+        toggle,  
         cartItems, 
         cartQty,
         carttotal,
+        setToggle,
         addItemToCart,
         removeItemFromCart, 
         clearItemFromCart

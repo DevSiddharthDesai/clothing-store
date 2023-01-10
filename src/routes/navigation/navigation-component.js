@@ -1,20 +1,16 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Outlet, Link } from "react-router-dom";
+
 import CartIcon from "../../components/cart-icon/cart-icon-component";
 import Logo from '../../assets/crown.svg';
-import { UserContext } from "../../context/user.context";
 import { signoutuser } from "../../utils/firebase/firebase.utils";
 import CartDropdown  from "../../components/cart-dropdown/cart-dropdown";
 import {NavigationContainer, NavLinks, NavLink, LogoContainer} from './navigation.styles';
+import { selectCurrentUser } from "../../store/user/user.selector";
+
 const Navigation = () => {
 
-    const { currentUser, setCurrentUser } = useContext(UserContext);
-
-
-    const signOuthandler = async () => {
-        await signoutuser();
-        setCurrentUser(null);
-    }
+    const currentUser = useSelector(selectCurrentUser);
 
     return(
       <>
@@ -26,7 +22,7 @@ const Navigation = () => {
             <NavLink to='/shop'>
                 SHOP
             </NavLink>
-            {currentUser ? (<NavLink as='span' onClick={signOuthandler}>
+            {currentUser ? (<NavLink as='span' onClick={signoutuser}>
                 Sign Out
             </NavLink>) : ( 
             <NavLink to='/auth'>
