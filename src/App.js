@@ -39,8 +39,8 @@ const App = () => {
         
     const getCategoriesMap = async () => {
         
-        const categoryMap = await getCategoriesAndDocuments();
-        dispatch(setCategoriesMap(categoryMap));
+        const categoriesMap = await getCategoriesAndDocuments('categories');
+        dispatch(setCategoriesMap(categoriesMap));
     }
 
     getCategoriesMap();

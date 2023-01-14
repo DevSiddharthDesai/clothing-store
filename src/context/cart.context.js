@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 // Add Cart Item Func
 const addCartItem = (cartItems, productToAdd) => {

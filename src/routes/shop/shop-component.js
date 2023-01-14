@@ -6,7 +6,7 @@ import {setCategoriesMap} from '../../store/categories/categories.selector';
 
 const Shop = () => {
 
-    const categoriesMap = useSelector(setCategoriesMap);
+  const categoriesMap = useSelector(setCategoriesMap);
 
     return(
       <>

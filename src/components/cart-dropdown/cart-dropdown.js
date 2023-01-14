@@ -1,23 +1,24 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { CartContext } from '../../context/cart.context';
+import {selectCartItems, selectToggle, selectCartTotal} from '../../store/cart/cart.selector';
 import Button from '../button/button';
-import {CartContainer, EmptyMessage, CartItems} from './cart-dropdown.styles';
+import {CartContainer, CartItems} from './cart-dropdown.styles';
 import CartItem from '../cart-item/cart-item-component';
+import { useSelector } from 'react-redux';
 
 const CartDropdown = () => {
 
-    const { toggle, cartItems, carttotal } = useContext(CartContext);
+    const select_toggle = useSelector(selectToggle);
+    const selectcartitems = useSelector(selectCartItems);
+    const selectcarttotal = useSelector(selectCartTotal);
 
     return(
-        
-        <CartContainer toggled={toggle}>
+        <CartContainer toggled={select_toggle}>
             <CartItems> 
-                {cartItems ? cartItems.map((item) => {
+                {selectcartitems ? selectcartitems.map((item) => {
                     return <CartItem cartitem={item} />
                 }): ''}           
             </CartItems>
-            Total: {carttotal}
+            Total: {selectcarttotal}
             <Link to='checkout'><Button>Go TO Checkout</Button></Link>
         </CartContainer>
     )
