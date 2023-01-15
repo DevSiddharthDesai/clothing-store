@@ -14,15 +14,13 @@ export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
             return{
                 ...state,
                 cartItems: payload
-            }
+            };
         case CART_ACTION_TYPES.SET_TOGGLE:
             return{
                 ...state,
                 toggle: payload
-            }
+            };
         default:
-            return{
-                ...state
-            }
+            return state
     }
-}
+};
